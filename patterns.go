@@ -5,10 +5,12 @@
 package validator
 
 import (
-	"github.com/dlclark/regexp2"
 	"regexp"
+
+	"github.com/dlclark/regexp2"
 )
 
+// nolint: gosec,lll
 const (
 	UUID4WithoutHyphenPattern   = "^[0-9a-f]{12}4[0-9a-f]{3}[89ab][0-9a-f]{15}$"
 	LanguagePattern             = "^[a-zA-Z]+([-]{1}[a-zA-Z]+)*$"

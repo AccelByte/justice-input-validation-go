@@ -1,10 +1,12 @@
 package validator
 
 import (
-	"github.com/asaskevich/govalidator"
-	"github.com/pariz/gountries"
 	"strconv"
 	"time"
+	"unicode"
+
+	"github.com/asaskevich/govalidator"
+	"github.com/pariz/gountries"
 )
 
 func IsTag(str string) bool {
@@ -37,6 +39,16 @@ func IsEmail(str string) bool {
 
 func IsPermissionResource(str string) bool {
 	return rxResourcePermission.MatchString(str)
+}
+
+func IsAlphaNumUnicode(str string) bool {
+	for _, char := range str {
+		if isValid := unicode.In(char, unicode.M, unicode.Nl, unicode.L, unicode.N); !isValid {
+			return false
+		}
+	}
+
+	return true
 }
 
 func IsPath(str string) bool {
