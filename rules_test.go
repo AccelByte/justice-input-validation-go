@@ -187,6 +187,30 @@ func Test_IsAlphaNumUnicode(t *testing.T) {
 	})
 }
 
+func Test_IsDisplayNameUnicode(t *testing.T) {
+	t.Run("Test_IsDisplayNameUnicodeValid", func(t *testing.T) {
+		inputs := []string{"ስም", "اسم", "Անուն", "імя", "নাম", "име", "名称", "名稱", "სახელი", "όνομα", "નામ", "שם",
+			"नाम", "名前", "ಹೆಸರು", "ат", "ឈ្មោះ", "이름", "ысым", "ຊື່", "име", "പേര്", "नाव", "нэр", "နာမတျောကို", "नाम",
+			"نوم", "نام", "ਨਾਮ", "имя", "име", "نالو", "නාමය", "ном", "பெயர்", "పేరు", "ชื่อ", "назва", "نام", "נאָמען",
+			"Valid Name", "Valid Name 12345", "VALID NAME", "DisplayName",
+		}
+		for i, input := range inputs {
+			valid := validator.IsDisplayNameUnicode(input)
+			assert.True(t, valid, i)
+		}
+	})
+	t.Run("Test_IsDisplayNameUnicodeInvalidChars", func(t *testing.T) {
+		inputs := []string{"In+Valid", "!nValid", "Inv@lid", "অবৈধ অবৈধ", "ልክ ያልሆነ @ ልክ ያልሆነ",
+			"Անվավեր է անվավեր", "无效！无效", "無效！無效", "არასწორია, არასწორი", "Ungültig ungültig", "Μη έγκυρο",
+			"अमान्य अमान्य #", "ไม่ถูกต้องไม่ถูกต้อง!", "無効無効！",
+		}
+		for _, input := range inputs {
+			valid := validator.IsDisplayNameUnicode(input)
+			assert.False(t, valid)
+		}
+	})
+}
+
 func Test_IsPath(t *testing.T) {
 	t.Run("Test_IsPathValid", func(t *testing.T) {
 		inputs := []string{"/path", "/path/TO/SomeWhere"}

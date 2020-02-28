@@ -46,6 +46,7 @@ if valid, err := validator.ValidateStruct(reqData); !valid || err {
 "uuid4WithoutHyphens"   : IsUUID4WithoutHyphens
 "permissionResource"    : IsPermissionResource
 "alphaNumUnicode"       : IsAlphaNumUnicode
+"displayNameUnicode"    : IsDisplayNameUnicode
 "path"                  : IsPath
 "url"                   : IsURL
 "dateTime"              : IsDateTime

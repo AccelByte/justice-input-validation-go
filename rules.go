@@ -51,6 +51,21 @@ func IsAlphaNumUnicode(str string) bool {
 	return true
 }
 
+func IsDisplayNameUnicode(str string) bool {
+	isValid := true
+	for _, char := range str {
+		if isValid = unicode.In(char, unicode.M, unicode.Nl, unicode.L, unicode.N); !isValid {
+			break
+		}
+	}
+
+	if isValid {
+		return true
+	}
+
+	return rxDisplayName.MatchString(str)
+}
+
 func IsPath(str string) bool {
 	return rxPath.MatchString(str)
 }
